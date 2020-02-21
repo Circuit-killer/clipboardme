@@ -1,5 +1,5 @@
 #!/bin/bash
-# Clipboard me v1.1
+# Clipboard me v1.2
 # coded by: github.com/thelinuxchoice/clipboardme
 # If you use any part from this code, giving me the credits. Read the Lincense!
 
@@ -16,7 +16,7 @@ printf "\e[1;77m| \_____| | | | | | |_) ) |_| ( ( | | |  ( (_| |\e[0m\e[1;92m| |
 printf "\e[1;77m \______)_|_| ||_/|____/ \___/ \_||_|_|   \____|\e[0m\e[1;92m|_|_|_|\____) \e[0m\n"
 printf "\e[1;77m            |_|                                               \e[0m\n"
 
-printf " \e[1;77mv1.1 coded by github.com/thelinuxchoice/clipboardme\e[0m \n"
+printf " \e[1;77mv1.2 coded by github.com/thelinuxchoice/clipboardme\e[0m \n"
 
 printf "\n"
 
@@ -169,7 +169,7 @@ printf "\e[1;92m[\e[0m+\e[1;92m] Downloading Ngrok...\n"
 arch=$(uname -a | grep -o 'arm' | head -n1)
 arch2=$(uname -a | grep -o 'Android' | head -n1)
 if [[ $arch == *'arm'* ]] || [[ $arch2 == *'Android'* ]] ; then
-wget https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-arm.zip > /dev/null 2>&1
+wget --no-check-certificate https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-arm.zip > /dev/null 2>&1
 
 if [[ -e ngrok-stable-linux-arm.zip ]]; then
 unzip ngrok-stable-linux-arm.zip > /dev/null 2>&1
@@ -181,7 +181,7 @@ exit 1
 fi
 
 else
-wget https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-386.zip > /dev/null 2>&1 
+wget --no-check-certificate https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-386.zip > /dev/null 2>&1 
 if [[ -e ngrok-stable-linux-386.zip ]]; then
 unzip ngrok-stable-linux-386.zip > /dev/null 2>&1
 chmod +x ngrok
