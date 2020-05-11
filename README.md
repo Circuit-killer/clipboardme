@@ -5,7 +5,7 @@ Browsers are implementing a new JavaScript API for asynchronous clipboard access
 
 Clipboardme is a pentester tool that can read and write content to the clipboard by just opening a link, using async clipboard API.
 
-![cb](https://user-images.githubusercontent.com/34893261/56546581-335d0000-6551-11e9-85c0-12ee672b3fb4.png)
+![cm](https://user-images.githubusercontent.com/34893261/81521971-3de66500-931f-11ea-8c5c-92f9502f8aba.png)
 
 ## How does Async Clipboard API work?
 
@@ -40,3 +40,24 @@ Chrome 66,
 Opera 53,
 Chrome for Android,
 Opera for Android
+
+### Requirements:
+#### Ngrok Authtoken (for TCP Tunneling): Sign up at: https://ngrok.com/signup
+#### Your authtoken is available on your dashboard: https://dashboard.ngrok.com
+#### Install your auhtoken: ./ngrok authtoken <YOUR_AUTHTOKEN>
+
+## Legal disclaimer:
+
+Usage of Clipboardme for attacking targets without prior mutual consent is illegal. It's the end user's responsibility to obey all applicable local, state and federal laws. Developers assume no liability and are not responsible for any misuse or damage caused by this program 
+
+### Usage:
+```
+git clone https://github.com/thelinuxchoice/clipboardme
+cd clipboardme
+bash clipboardme.sh
+```
+### Donate!
+Pay me a coffee:
+### Paypal:
+https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=CLKRT5QXXFJY4&source=url
+
